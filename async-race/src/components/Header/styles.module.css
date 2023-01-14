@@ -1,3 +1,9 @@
-.wrapper {
+.header_wrapper{
     color: red;
+}
+
+.new_class {
+    background-color:blueviolet;
+    width: 300px;
+    height: 200px;
 }
