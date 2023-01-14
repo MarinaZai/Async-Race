@@ -9,10 +9,11 @@ type HeaderPropsType = {
 export const Header: React.FC<HeaderPropsType> = ({ title }) => {
   return (
     <header className={styles.header_wrapper}>
-      {title}
-      <HeaderButton title="To garage" />
-      <HeaderButton title="Winners" />
-      <div className={styles.new_class}>X</div>
+      <a href = "/" className={styles.header_wrapper_title}>{title}</a>
+      <div className={styles.header_wrapper_buttons}>
+        <HeaderButton title="To garage" />
+        <HeaderButton title="Winners" />
+      </div>
     </header>
   );
 };

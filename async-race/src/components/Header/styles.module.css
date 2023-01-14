@@ -1,9 +1,28 @@
 .header_wrapper{
     color: red;
+    display: flex;
+    justify-content: space-around;
+    padding: 1%;
+    border-bottom: solid 2px white;
+}
+.header_wrapper_title{
+    width: 30%;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    background-image: linear-gradient(
+        to right,
+        #757f9a 0%,
+        #d7dde8 51%,
+        #757f9a 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+}
+.header_wrapper_buttons{
+    display: flex;
+    width: 40%;
+    justify-content: space-around;
+    color: red;
 }
 
-.new_class {
-    background-color:blueviolet;
-    width: 300px;
-    height: 200px;
-}
