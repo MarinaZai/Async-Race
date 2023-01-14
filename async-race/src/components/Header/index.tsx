@@ -12,9 +12,7 @@ export const Header: React.FC<HeaderPropsType> = ({ title }) => {
       {title}
       <HeaderButton title="To garage" />
       <HeaderButton title="Winners" />
-      <div className={styles.new_class}>
-        X
-      </div>
+      <div className={styles.new_class}>X</div>
     </header>
   );
 };
