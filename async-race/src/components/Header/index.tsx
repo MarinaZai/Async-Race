@@ -10,10 +10,8 @@ type HeaderPropsType = {
 export const Header: React.FC<HeaderPropsType> = ({ title }) => {
   return (
     <header className={styles.header_wrapper}>
-      <Link to="/">
-        <a href="/" className={styles.header_wrapper_title}>
+      <Link to="/" className={styles.header_wrapper_title}>
           {title}
-        </a>
       </Link>
       <div className={styles.header_wrapper_buttons}>
         <Link to="/">
