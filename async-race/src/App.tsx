@@ -1,15 +1,16 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header";
 import { MainPage } from "./pages/Main";
 import { WinnersPage } from "./pages/Winners";
 
-const enum Routes {
+/* const enum Routing {
   main = "/",
   winners = "/winners",
 }
-
+ */
 export const App = () => {
-  const router = (route: string) => {
+  /* const router = (route: string) => {
     switch (route) {
       case "/":
         return <MainPage />;
@@ -18,12 +19,15 @@ export const App = () => {
       default:
         return <div>404</div>;
     }
-  };
+  }; */
 
   return (
     <div>
       <Header title="ASYNC-RACE GAME" />
-      {router('/')}
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/winners" element={<WinnersPage />} />
+      </Routes>
     </div>
   );
 };

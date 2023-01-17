@@ -1,0 +1,24 @@
+.race_functionality_container {
+  display: flex;
+  gap: 2%;
+  padding: 1%;
+}
+.race_functionality_container button {
+  background-image: linear-gradient(
+    to right,
+    #1d4350 0%,
+    #a43931 51%,
+    #1d4350 100%
+  );
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 1%;
+}
+
+.race_functionality_container button:hover {
+  color: #fff;
+  text-decoration: none;
+}

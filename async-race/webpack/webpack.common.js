@@ -26,16 +26,23 @@ module.exports = {
         test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
         type: "asset/inline",
       },
-      { test: /\.css$/, use: [ 
-        { loader: "style-loader" },  
-        { loader: "css-modules-typescript-loader"}, 
-        { loader: "css-loader", options: { modules: true } },
-    ] }, 
+      {
+        test: /\.css$/,
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-modules-typescript-loader" },
+          { loader: "css-loader", options: { modules: true } },
+        ],
+      },
     ],
   },
   output: {
     path: path.resolve(__dirname, "..", "./dist"),
     filename: "[name].[chunkhash].js",
+    publicPath: "/",
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
