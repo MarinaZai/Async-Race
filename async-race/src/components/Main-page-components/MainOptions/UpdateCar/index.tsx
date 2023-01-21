@@ -5,7 +5,7 @@ export const UpdateCar = () => {
   return (
     <div className={styles.update_container}>
       <input type="text" placeholder="update name"/>
-      <input type="color" id="head" name="head" value="#707070" />
+      <input type="color" id="head" name="head" defaultValue="#707070" />
       <button>UPDATE</button>
     </div>
   );
