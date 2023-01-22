@@ -11,7 +11,7 @@ export const Header: React.FC<HeaderPropsType> = ({ title }) => {
   return (
     <header className={styles.header_wrapper}>
       <Link to="/" className={styles.header_wrapper_title}>
-          {title}
+        {title}
       </Link>
       <div className={styles.header_wrapper_buttons}>
         <Link to="/">

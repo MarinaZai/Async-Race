@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ICar } from "../../../interfaces";
-import { CarIcon } from "../../CarIcon";
 import { CarRace } from "../CarRace";
 import styles from "./styles.module.css";
 

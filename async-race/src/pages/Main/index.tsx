@@ -11,6 +11,11 @@ export const MainPage = () => {
   const [selectedCar, setSelectedCar] = useState<ICar | null>(null);
   const [isAnimationStarted, setIsAnimationStarted] = useState(false);
 
+  const getCars = async () => {
+    const startCars = await axios.get(`${BASE_URL}/garage`);
+    setCars(startCars.data);
+  };
+
   const updateCar = (name: string, color: string) => {
     if (!selectedCar) {
       return;
@@ -41,11 +46,6 @@ export const MainPage = () => {
       .then(() => {
         getCars();
       });
-  };
-
-  const getCars = async () => {
-    const startCars = await axios.get(`${BASE_URL}/garage`);
-    setCars(startCars.data);
   };
 
   useEffect(() => {

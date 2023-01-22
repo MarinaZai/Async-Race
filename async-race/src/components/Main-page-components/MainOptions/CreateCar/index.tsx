@@ -40,7 +40,7 @@ export const CreateCar: React.FC<CreateCarPropsType> = ({
         value={color}
         onChange={selectColorHandler}
       ></input>
-      
+
       <button onClick={createCar}>CREATE</button>
     </div>
   );

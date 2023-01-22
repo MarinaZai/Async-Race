@@ -32,7 +32,7 @@ export const UpdateCar: React.FC<UpdateCarPropsType> = ({ updateCar }) => {
       <button
         onClick={() => {
           updateCar(newName, newColor);
-          setNewName('')
+          setNewName("");
         }}
       >
         UPDATE

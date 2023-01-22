@@ -1,5 +1,4 @@
 import { ICar } from "../../../interfaces";
-import { CarIcon } from "../../CarIcon";
 import styles from "./styles.module.css";
 
 type ControllerCarPropsType = {
@@ -9,8 +8,13 @@ type ControllerCarPropsType = {
   setSelectedCar: (selectedCar: ICar) => void;
 };
 
-export const ControllerCar: React.FC<ControllerCarPropsType> = ({car,deleteCar,selectedCar,setSelectedCar}) => {
-   return (
+export const ControllerCar: React.FC<ControllerCarPropsType> = ({
+  car,
+  deleteCar,
+  selectedCar,
+  setSelectedCar,
+}) => {
+  return (
     <div className={styles.buttons_controller}>
       <div style={{ paddingBottom: "1%", paddingRight: "1%" }}>
         <button
