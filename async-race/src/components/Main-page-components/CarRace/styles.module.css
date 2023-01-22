@@ -1,4 +1,10 @@
 .icon_container {
-    position: relative;
-  }
-  
+  position: relative;
+}
+
+.car_race_block {
+  border-bottom: solid;
+  border-bottom-color: white;
+  border-bottom-style: dashed;
+  margin-bottom: 2%;
+}

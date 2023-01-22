@@ -48,15 +48,7 @@ export const CarRace: React.FC<CarRacePropsType> = ({
   });
 
   return (
-    <div
-      key={car.id + car.name}
-      style={{
-        borderBottom: "solid",
-        borderBottomColor: "white",
-        borderBottomStyle: "dashed",
-        marginBottom: "2%",
-      }}
-    >
+    <div className={styles.car_race_block} key={car.id + car.name}>
       <ControllerCar
         car={car}
         deleteCar={deleteCar}
@@ -70,7 +62,7 @@ export const CarRace: React.FC<CarRacePropsType> = ({
         style={{
           display: "flex",
           justifyContent: "space-between",
-          marginRight: "7%",
+          marginRight: "10%",
         }}
         ref={containerRef}
       >

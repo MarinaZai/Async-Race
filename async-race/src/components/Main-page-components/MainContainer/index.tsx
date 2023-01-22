@@ -10,7 +10,7 @@ type MainContainerPropsType = {
   selectedCar: ICar | null;
   setSelectedCar: (selectedCar: ICar) => void;
   isAnimationStarted: boolean;
-  setIsAnimationStarted: (isStarted: boolean) => void
+  setIsAnimationStarted: (isStarted: boolean) => void;
 };
 
 export const MainContainer: React.FC<MainContainerPropsType> = ({
@@ -19,9 +19,9 @@ export const MainContainer: React.FC<MainContainerPropsType> = ({
   deleteCar,
   setSelectedCar,
   isAnimationStarted,
-  setIsAnimationStarted
+  setIsAnimationStarted,
 }) => {
-
+  let countCars = cars.length;
   const createStartGarage = () => {
     return (
       <div>
@@ -43,5 +43,10 @@ export const MainContainer: React.FC<MainContainerPropsType> = ({
     );
   };
 
-  return <div className={styles.main_container}>{createStartGarage()}</div>;
+  return (
+    <div className={styles.main_container}>
+      <p className={styles.main_container_title_garage}>GARAGE({countCars})</p>
+      {createStartGarage()}
+    </div>
+  );
 };
