@@ -4,10 +4,13 @@ import { RaceFunctionality } from "./RaceFunctionality";
 import styles from "./styles.module.css";
 import { UpdateCar } from "./UpdateCar";
 
-export const MainOptions = () => {
+type MainOptionsPropsType = {
+  createCarHandler: (name:string, color:string)=> void
+};
+export const MainOptions: React.FC<MainOptionsPropsType> = ({createCarHandler}) => {
   return (
     <div className={styles.main_options}>
-      <CreateCar />
+      <CreateCar createCarHandler={createCarHandler}/>
       <UpdateCar />
       <RaceFunctionality />
     </div>
