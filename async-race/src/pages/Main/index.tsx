@@ -8,15 +8,29 @@ import { BASE_URL } from "../../constants";
 
 export const MainPage = () => {
   const [cars, setCars] = useState<ICar[]>([]);
-  const [selectedCar, setSelectedCar] = useState<ICar | null>(null)
+  const [selectedCar, setSelectedCar] = useState<ICar | null>(null);
+  const [isAnimationStarted, setIsAnimationStarted] = useState(false);
 
-  const deleteCar = (id:number) =>{
+  const updateCar = (name: string, color: string) => {
+    if (!selectedCar) {
+      return;
+    }
     axios
-    .delete(`${BASE_URL}/garage/${id}`)
-    .then(() => {
+      .put(`${BASE_URL}/garage/${selectedCar.id}`, {
+        name: name,
+        color: color,
+      })
+      .then(() => {
+        getCars();
+        setSelectedCar(null);
+      });
+  };
+
+  const deleteCar = (id: number) => {
+    axios.delete(`${BASE_URL}/garage/${id}`).then(() => {
       getCars();
     });
-  }
+  };
 
   const createCarHandler = (name: string, color: string) => {
     axios
@@ -37,10 +51,22 @@ export const MainPage = () => {
   useEffect(() => {
     getCars();
   }, []);
+
   return (
     <div className={styles.main_page}>
-      <MainOptions createCarHandler={createCarHandler} />
-      <MainContainer cars={cars} deleteCar={deleteCar}/>
+      <MainOptions
+        createCarHandler={createCarHandler}
+        updateCar={updateCar}
+        setIsAnimationStarted={setIsAnimationStarted}
+      />
+      <MainContainer
+        cars={cars}
+        deleteCar={deleteCar}
+        selectedCar={selectedCar}
+        setSelectedCar={setSelectedCar}
+        isAnimationStarted={isAnimationStarted}
+        setIsAnimationStarted={setIsAnimationStarted}
+      />
     </div>
   );
 };

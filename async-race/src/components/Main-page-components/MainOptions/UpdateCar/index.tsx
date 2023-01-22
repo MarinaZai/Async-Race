@@ -1,12 +1,42 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import styles from "./styles.module.css";
 
-export const UpdateCar = () => {
+type UpdateCarPropsType = {
+  updateCar: (name: string, color: string) => void;
+};
+
+export const UpdateCar: React.FC<UpdateCarPropsType> = ({ updateCar }) => {
+  const [newName, setNewName] = useState("");
+  const [newColor, setNewColor] = useState("#707070");
+  const updateNewName = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewName(e.target.value);
+  };
+  const updateNewColor = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewColor(e.target.value);
+  };
   return (
     <div className={styles.update_container}>
-      <input type="text" placeholder="update name"/>
-      <input type="color" id="head" name="head" defaultValue="#707070" />
-      <button>UPDATE</button>
+      <input
+        type="text"
+        placeholder="update name"
+        value={newName}
+        onChange={updateNewName}
+      />
+      <input
+        type="color"
+        id="head"
+        name="head"
+        value={newColor}
+        onChange={updateNewColor}
+      />
+      <button
+        onClick={() => {
+          updateCar(newName, newColor);
+          setNewName('')
+        }}
+      >
+        UPDATE
+      </button>
     </div>
   );
 };

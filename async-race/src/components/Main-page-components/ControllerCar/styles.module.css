@@ -1,0 +1,35 @@
+.buttons_controller {
+  padding: 1%;
+}
+.button_controller_top {
+  background-image: linear-gradient(
+    to right,
+    #2c3e50 0%,
+    #4ca1af 51%,
+    #2c3e50 100%
+  );
+  text-transform: uppercase;
+  transition: 0.5s;
+  color: black;
+  border-radius: 10px;
+}
+.button_controller_top:hover {
+  color: #fff;
+}
+
+.button_controller_bottom {
+  background-image: linear-gradient(
+    to right,
+    #42275a 0%,
+    #734b6d 51%,
+    #42275a 100%
+  );
+  text-transform: uppercase;
+  transition: 0.5s;
+  color: black;
+  border-radius: 10px;
+}
+
+.button_controller_bottom:hover {
+  color: #fff;
+}

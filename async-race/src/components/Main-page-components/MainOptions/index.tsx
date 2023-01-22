@@ -5,14 +5,20 @@ import styles from "./styles.module.css";
 import { UpdateCar } from "./UpdateCar";
 
 type MainOptionsPropsType = {
-  createCarHandler: (name:string, color:string)=> void
+  createCarHandler: (name: string, color: string) => void;
+  updateCar: (name: string, color: string) => void;
+  setIsAnimationStarted: (isStarted: boolean) => void;
 };
-export const MainOptions: React.FC<MainOptionsPropsType> = ({createCarHandler}) => {
+export const MainOptions: React.FC<MainOptionsPropsType> = ({
+  createCarHandler,
+  updateCar,
+  setIsAnimationStarted,
+}) => {
   return (
     <div className={styles.main_options}>
-      <CreateCar createCarHandler={createCarHandler}/>
-      <UpdateCar />
-      <RaceFunctionality />
+      <CreateCar createCarHandler={createCarHandler} />
+      <UpdateCar updateCar={updateCar} />
+      <RaceFunctionality setIsAnimationStarted={setIsAnimationStarted} />
     </div>
   );
 };
