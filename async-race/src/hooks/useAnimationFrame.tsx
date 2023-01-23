@@ -5,13 +5,13 @@ export const useAnimationFrame = ({
   // we still want to have "infinite" animations in some cases
   duration = Number.POSITIVE_INFINITY,
   shouldAnimate,
-}: any) => {
-  console.log(shouldAnimate);
+}: {nextAnimationFrameHandler: (time: number) => void, duration: number, shouldAnimate: boolean}) => {
+
   const frame = React.useRef(0);
   // keep track of when animation is started
   const firstFrameTime = React.useRef(performance.now());
 
-  const animate = (now: any) => {
+  const animate = (now: number) => {
     // calculate at what time fraction we are currently of whole time of animation
     let timeFraction = (now - firstFrameTime.current) / duration;
     if (timeFraction > 1) {

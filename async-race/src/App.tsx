@@ -1,14 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header";
 import { MainPage } from "./pages/Main";
 import { WinnersPage } from "./pages/Winners";
 
-/* const enum Routing {
-  main = "/",
-  winners = "/winners",
-}
- */
+
 export const App = () => {
   /* const router = (route: string) => {
     switch (route) {
@@ -22,12 +18,13 @@ export const App = () => {
   }; */
 
   return (
+    
     <div>
       <Header title="ASYNC-RACE GAME" />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/winners" element={<WinnersPage />} />
-      </Routes>
+      </Routes> 
     </div>
   );
 };

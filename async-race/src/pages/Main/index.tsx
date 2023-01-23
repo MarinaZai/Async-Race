@@ -5,15 +5,19 @@ import { MainOptions } from "../../components/Main-page-components/MainOptions";
 import styles from "./styles.module.css";
 import { ICar } from "../../interfaces";
 import { BASE_URL } from "../../constants";
+import Pagination from "../../components/Pagination";
 
 export const MainPage = () => {
   const [cars, setCars] = useState<ICar[]>([]);
   const [selectedCar, setSelectedCar] = useState<ICar | null>(null);
   const [isAnimationStarted, setIsAnimationStarted] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalCount, setTotalCount] = useState(0)
 
   const getCars = async () => {
-    const startCars = await axios.get(`${BASE_URL}/garage`);
-    setCars(startCars.data);
+    const response = await axios.get(`${BASE_URL}/garage?_limit=7&_page=${currentPage}`);
+    setCars(response.data);
+    setTotalCount(response.headers["x-total-count"] ? +response.headers["x-total-count"] : 0)
   };
 
   const updateCar = (name: string, color: string) => {
@@ -48,9 +52,21 @@ export const MainPage = () => {
       });
   };
 
+  const createCars = (cars: Omit<ICar, 'id'>[]) => {
+    Promise.all(cars.map((car) => {
+      axios
+      .post(`${BASE_URL}/garage`, {
+        name: car.name,
+        color: car.color,
+      })
+    })).then(() => {
+      getCars();
+    })
+  }
+
   useEffect(() => {
     getCars();
-  }, []);
+  }, [currentPage]);
 
   return (
     <div className={styles.main_page}>
@@ -58,6 +74,7 @@ export const MainPage = () => {
         createCarHandler={createCarHandler}
         updateCar={updateCar}
         setIsAnimationStarted={setIsAnimationStarted}
+        createCars={createCars}
       />
       <MainContainer
         cars={cars}
@@ -66,6 +83,16 @@ export const MainPage = () => {
         setSelectedCar={setSelectedCar}
         isAnimationStarted={isAnimationStarted}
         setIsAnimationStarted={setIsAnimationStarted}
+        totalCount={totalCount}
+        isAnimationStated={isAnimationStarted}
+      />
+      <Pagination
+        buttonConst={3}
+        contentPerPage={7}
+        siblingCount={1}
+        totalPageCount={Math.ceil(totalCount / 7)}
+        curentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </div>
   );

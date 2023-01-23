@@ -6,6 +6,7 @@ type ControllerCarPropsType = {
   deleteCar: (id: number) => void;
   selectedCar: ICar | null;
   setSelectedCar: (selectedCar: ICar) => void;
+  setIsStart: (isStart: boolean) => void;
 };
 
 export const ControllerCar: React.FC<ControllerCarPropsType> = ({
@@ -13,6 +14,7 @@ export const ControllerCar: React.FC<ControllerCarPropsType> = ({
   deleteCar,
   selectedCar,
   setSelectedCar,
+  setIsStart,
 }) => {
   return (
     <div className={styles.buttons_controller}>
@@ -39,10 +41,14 @@ export const ControllerCar: React.FC<ControllerCarPropsType> = ({
         <button
           style={{ marginRight: "1%" }}
           className={styles.button_controller_bottom}
+          onClick={() => setIsStart(true)}
         >
           start
         </button>
-        <button className={styles.button_controller_bottom}>restart</button>
+        <button 
+        className={styles.button_controller_bottom}
+        onClick={() => setIsStart(false)}
+        >restart</button>
       </div>
     </div>
   );

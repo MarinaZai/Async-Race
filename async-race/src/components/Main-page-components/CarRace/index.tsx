@@ -1,5 +1,7 @@
-import { useEffect, useRef } from "react";
-import { useAnimationFrame } from "../../../hooks";
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+import { BASE_URL } from "../../../constants";
+import { useAnimationFrame } from "../../../hooks/useAnimationFrame";
 import { ICar } from "../../../interfaces";
 import { CarIcon } from "../../CarIcon";
 import { ControllerCar } from "../ControllerCar";
@@ -12,7 +14,7 @@ type CarRacePropsType = {
   setSelectedCar: (selectedCar: ICar) => void;
   startRace: boolean;
   setIsAnimationStarted: (isStarted: boolean) => void;
-  duration: number;
+  isAnimationStarted: boolean;
 };
 
 export const CarRace: React.FC<CarRacePropsType> = ({
@@ -22,12 +24,25 @@ export const CarRace: React.FC<CarRacePropsType> = ({
   setSelectedCar,
   startRace = false,
   setIsAnimationStarted,
-  duration,
+  isAnimationStarted,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const divContainerRef = useRef<HTMLDivElement>(null);
+  const [duration, setDuration] = useState(0);
+  const [isStart, setIsStart] = useState(startRace);
 
-  const nextAnimationFrameHandler = (progress: any) => {
+  const startStopEngine = async (id: number, staus: "started" | "stopped") => {
+    const result = await axios.patch<{ velocity: number; distance: number }>(
+      `${BASE_URL}/engine?id=${id}&status=${staus}`,
+    );
+    setDuration(result.data.distance / result.data.velocity);
+  };
+
+  useEffect(() => {
+    startStopEngine(car.id, "started");
+  }, [isAnimationStarted]);
+
+  const nextAnimationFrameHandler = (progress: number) => {
     const brick = divContainerRef.current;
     if (brick) {
       const currentLeft = Number(brick.style.left.replace("px", "") || 0);
@@ -35,16 +50,28 @@ export const CarRace: React.FC<CarRacePropsType> = ({
       if (progress < 1) {
         brick.style.left = `${containerRef.current?.offsetWidth! * progress}px`;
       } else {
-        setIsAnimationStarted(false);
         brick.style.left = containerRef.current?.offsetWidth + `px`;
       }
     }
   };
 
+  useEffect(() => {
+    if (!isAnimationStarted || !isStart) {
+      const brick = divContainerRef.current;
+      if (brick) {
+        brick.style.left = "0";
+      }
+    }
+  }, [isAnimationStarted, isStart]);
+
+  useEffect(() => {
+    setIsStart(startRace);
+  }, [startRace]);
+
   useAnimationFrame({
     nextAnimationFrameHandler,
     duration: duration,
-    shouldAnimate: startRace,
+    shouldAnimate: isStart,
   });
 
   return (
@@ -54,6 +81,7 @@ export const CarRace: React.FC<CarRacePropsType> = ({
         deleteCar={deleteCar}
         selectedCar={selectedCar}
         setSelectedCar={setSelectedCar}
+        setIsStart={setIsStart}
       />
       <p style={{ color: "white", fontWeight: "600", margin: "0" }}>
         {car.name}
