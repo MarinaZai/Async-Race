@@ -6,11 +6,11 @@ const range = (start: number, end: number) => {
 };
 
 export const usePagination = (param: {
-  totalPageCount: number,
-  dataLimit: number,
-  buttonConst: number,
-  siblingCount: number,
-  curentPage: number,
+  totalPageCount: number;
+  dataLimit: number;
+  buttonConst: number;
+  siblingCount: number;
+  curentPage: number;
 }) => {
   const paginationRange = useMemo(() => {
     // Pages count is determined as siblingCount + firstPage + lastPage + currentPage + 2*DOTS
@@ -27,7 +27,7 @@ export const usePagination = (param: {
     const leftSiblingIndex = Math.max(param.curentPage - param.siblingCount, 1);
     const rightSiblingIndex = Math.min(
       param.curentPage + param.siblingCount,
-      param.totalPageCount
+      param.totalPageCount,
     );
 
     /*
@@ -52,7 +52,7 @@ export const usePagination = (param: {
       let rightItemCount = 3 + 2 * param.siblingCount;
       let rightRange = range(
         param.totalPageCount - rightItemCount + 1,
-        param.totalPageCount
+        param.totalPageCount,
       );
 
       return [firstPageIndex, DOTS, ...rightRange];
@@ -62,7 +62,12 @@ export const usePagination = (param: {
       let middleRange = range(leftSiblingIndex, rightSiblingIndex);
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
     }
-  }, [param.totalPageCount, param.siblingCount, param.curentPage, param.buttonConst]);
+  }, [
+    param.totalPageCount,
+    param.siblingCount,
+    param.curentPage,
+    param.buttonConst,
+  ]);
 
   return paginationRange;
 };

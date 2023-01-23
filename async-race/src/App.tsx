@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header";
 import { MainPage } from "./pages/Main";
 import { WinnersPage } from "./pages/Winners";
-
 
 export const App = () => {
   /* const router = (route: string) => {
@@ -18,13 +17,12 @@ export const App = () => {
   }; */
 
   return (
-    
     <div>
       <Header title="ASYNC-RACE GAME" />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/winners" element={<WinnersPage />} />
-      </Routes> 
+      </Routes>
     </div>
   );
 };

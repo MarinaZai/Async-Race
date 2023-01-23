@@ -11,13 +11,19 @@ export const MainPage = () => {
   const [cars, setCars] = useState<ICar[]>([]);
   const [selectedCar, setSelectedCar] = useState<ICar | null>(null);
   const [isAnimationStarted, setIsAnimationStarted] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1)
-  const [totalCount, setTotalCount] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
 
   const getCars = async () => {
-    const response = await axios.get(`${BASE_URL}/garage?_limit=7&_page=${currentPage}`);
+    const response = await axios.get(
+      `${BASE_URL}/garage?_limit=7&_page=${currentPage}`,
+    );
     setCars(response.data);
-    setTotalCount(response.headers["x-total-count"] ? +response.headers["x-total-count"] : 0)
+    setTotalCount(
+      response.headers["x-total-count"]
+        ? +response.headers["x-total-count"]
+        : 0,
+    );
   };
 
   const updateCar = (name: string, color: string) => {
@@ -52,17 +58,18 @@ export const MainPage = () => {
       });
   };
 
-  const createCars = (cars: Omit<ICar, 'id'>[]) => {
-    Promise.all(cars.map((car) => {
-      axios
-      .post(`${BASE_URL}/garage`, {
-        name: car.name,
-        color: car.color,
-      })
-    })).then(() => {
+  const createCars = (cars: Omit<ICar, "id">[]) => {
+    Promise.all(
+      cars.map((car) => {
+        axios.post(`${BASE_URL}/garage`, {
+          name: car.name,
+          color: car.color,
+        });
+      }),
+    ).then(() => {
       getCars();
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     getCars();

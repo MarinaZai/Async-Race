@@ -45,10 +45,12 @@ export const ControllerCar: React.FC<ControllerCarPropsType> = ({
         >
           start
         </button>
-        <button 
-        className={styles.button_controller_bottom}
-        onClick={() => setIsStart(false)}
-        >restart</button>
+        <button
+          className={styles.button_controller_bottom}
+          onClick={() => setIsStart(false)}
+        >
+          restart
+        </button>
       </div>
     </div>
   );

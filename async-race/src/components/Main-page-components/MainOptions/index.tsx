@@ -8,19 +8,22 @@ type MainOptionsPropsType = {
   createCarHandler: (name: string, color: string) => void;
   updateCar: (name: string, color: string) => void;
   setIsAnimationStarted: (isStarted: boolean) => void;
-  createCars: (cars: {name: string, color: string}[]) => void;
+  createCars: (cars: { name: string; color: string }[]) => void;
 };
 export const MainOptions: React.FC<MainOptionsPropsType> = ({
   createCarHandler,
   updateCar,
   setIsAnimationStarted,
-  createCars
+  createCars,
 }) => {
   return (
     <div className={styles.main_options}>
       <CreateCar createCarHandler={createCarHandler} />
       <UpdateCar updateCar={updateCar} />
-      <RaceFunctionality setIsAnimationStarted={setIsAnimationStarted} createCars={createCars}/>
+      <RaceFunctionality
+        setIsAnimationStarted={setIsAnimationStarted}
+        createCars={createCars}
+      />
     </div>
   );
 };

@@ -23,7 +23,6 @@ export const CarRace: React.FC<CarRacePropsType> = ({
   selectedCar,
   setSelectedCar,
   startRace = false,
-  setIsAnimationStarted,
   isAnimationStarted,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);

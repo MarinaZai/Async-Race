@@ -1,4 +1,4 @@
-import React, { useState, useEffect, MouseEvent, MouseEventHandler } from "react";
+import React, { useEffect, MouseEvent } from "react";
 import { DOTS, usePagination } from "../../hooks/usePagination";
 import styles from "./styles.module.css";
 

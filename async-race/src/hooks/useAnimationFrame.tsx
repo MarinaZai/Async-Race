@@ -5,8 +5,11 @@ export const useAnimationFrame = ({
   // we still want to have "infinite" animations in some cases
   duration = Number.POSITIVE_INFINITY,
   shouldAnimate,
-}: {nextAnimationFrameHandler: (time: number) => void, duration: number, shouldAnimate: boolean}) => {
-
+}: {
+  nextAnimationFrameHandler: (time: number) => void;
+  duration: number;
+  shouldAnimate: boolean;
+}) => {
   const frame = React.useRef(0);
   // keep track of when animation is started
   const firstFrameTime = React.useRef(performance.now());
@@ -22,7 +25,7 @@ export const useAnimationFrame = ({
       nextAnimationFrameHandler(timeFraction);
 
       // request next frame only in cases when we not reached 100% of duration
-      if (timeFraction != 1) frame.current = requestAnimationFrame(animate);
+      if (timeFraction !== 1) frame.current = requestAnimationFrame(animate);
     }
   };
   React.useEffect(() => {
