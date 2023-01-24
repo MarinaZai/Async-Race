@@ -1,5 +1,5 @@
-import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import axios, { AxiosError } from "axios";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { BASE_URL } from "../../../constants";
 import { useAnimationFrame } from "../../../hooks/useAnimationFrame";
 import { ICar } from "../../../interfaces";
@@ -15,6 +15,7 @@ type CarRacePropsType = {
   startRace: boolean;
   setIsAnimationStarted: (isStarted: boolean) => void;
   isAnimationStarted: boolean;
+  winnerHandler: Dispatch<SetStateAction<{ time: number } & ICar | null>>;
 };
 
 export const CarRace: React.FC<CarRacePropsType> = ({
@@ -23,18 +24,36 @@ export const CarRace: React.FC<CarRacePropsType> = ({
   selectedCar,
   setSelectedCar,
   startRace = false,
+  setIsAnimationStarted,
   isAnimationStarted,
+  winnerHandler,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const divContainerRef = useRef<HTMLDivElement>(null);
   const [duration, setDuration] = useState(0);
   const [isStart, setIsStart] = useState(startRace);
+  const [isCarCrashed, setIsCarCrashed] = useState(false);
 
-  const startStopEngine = async (id: number, staus: "started" | "stopped") => {
+  const driveEngine = async (id: number) => {
+    await axios
+      .patch(`${BASE_URL}/engine?id=${id}&status=drive`)
+      .catch((e: AxiosError) => {
+        if (e.response?.status === 500) {
+          startStopEngine(car.id, "stopped");
+          setIsCarCrashed(true);
+          setIsStart(false);
+        }
+      });
+  };
+
+  const startStopEngine = async (id: number, status: "started" | "stopped") => {
     const result = await axios.patch<{ velocity: number; distance: number }>(
-      `${BASE_URL}/engine?id=${id}&status=${staus}`,
+      `${BASE_URL}/engine?id=${id}&status=${status}`,
     );
-    setDuration(result.data.distance / result.data.velocity);
+    if (status === "started") {
+      setDuration(result.data.distance / result.data.velocity);
+      driveEngine(id);
+    }
   };
 
   useEffect(() => {
@@ -44,11 +63,16 @@ export const CarRace: React.FC<CarRacePropsType> = ({
   const nextAnimationFrameHandler = (progress: number) => {
     const brick = divContainerRef.current;
     if (brick) {
-      const currentLeft = Number(brick.style.left.replace("px", "") || 0);
-
       if (progress < 1) {
         brick.style.left = `${containerRef.current?.offsetWidth! * progress}px`;
       } else {
+        winnerHandler((prev) => {
+          if (!prev) {
+            return { ...car, time: +(duration / 1000).toFixed(2) };
+          } else {
+            return prev;
+          }
+        });
         brick.style.left = containerRef.current?.offsetWidth + `px`;
       }
     }
@@ -57,10 +81,11 @@ export const CarRace: React.FC<CarRacePropsType> = ({
   useEffect(() => {
     if (!isAnimationStarted || !isStart) {
       const brick = divContainerRef.current;
-      if (brick) {
+      if (brick && !isCarCrashed) {
         brick.style.left = "0";
       }
     }
+    setIsCarCrashed(false);
   }, [isAnimationStarted, isStart]);
 
   useEffect(() => {
