@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../../constants";
 import styles from "./styles.module.css";
 import { CarIcon } from "../../components/CarIcon";
+import Pagination from "../../components/Pagination";
 
 export const WinnersPage = () => {
   const [winners, setWinners] = useState<any[]>([]);
@@ -14,12 +15,18 @@ export const WinnersPage = () => {
   useEffect(() => {
     getWinners();
   }, []);
-
-
+  const [currentPage, setCurrentPage] = useState(1);
   return (
     <div className={styles.winners_page}>
       <h2 className={styles.winners_page_title}>Winners ({winners.length})</h2>
-      <p style={{ color: "white" }}>Pagination</p> {/* CHANGE ON PAGINATION */}
+      <Pagination
+        buttonConst={3}
+        contentPerPage={10}
+        siblingCount={1}
+        totalPageCount={Math.ceil(winners.length / 10)}
+        curentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
       <table>
         <thead>
           <tr>
