@@ -28,11 +28,11 @@
   
   .paginationItem {
     background: #fff;
-    border: 2px solid #666;
-    padding: 10px 15px;
+    border: 1px solid #666;
+    padding: 5px 10px;
     border-radius: 50%;
-    height: 45px;
-    width: 45px;
+    height: 30px;
+    width: 30px;
     position: relative;
     margin: 0 5px;
     cursor: pointer;
@@ -49,10 +49,10 @@
   .next {
     background: #fff;
     border: none;
-    padding: 10px;
+    padding: 3px;
     color: blue;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
-    margin: 0 10px;
+    margin: 0 6px;
     cursor: pointer;
   }
   

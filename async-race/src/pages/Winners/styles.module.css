@@ -1,0 +1,33 @@
+.winners_page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.winners_page_title {
+  color: white;
+}
+table {
+  min-width: 60%;
+  border-collapse: collapse;
+  margin: 20px auto;
+  padding: 10%;
+}
+
+/* Zebra striping */
+tr:nth-of-type(odd) {
+  background: #eee;
+}
+
+th {
+  background: #596f7d;
+  color: white;
+  font-weight: bold;
+}
+
+td,
+th {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+  font-size: 18px;
+}

@@ -58,7 +58,7 @@ const Pagination: React.FC<PaginationPropsType> = ({
             curentPage === 1 ? styles.disabled : ""
           }`}
         >
-          previous
+          prev
         </button>
         {paginationRange?.map((item: string | number, index: number) => {
           if (item === DOTS) {
