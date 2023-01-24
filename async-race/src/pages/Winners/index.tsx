@@ -1,13 +1,25 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { BASE_URL } from "../../constants";
 import styles from "./styles.module.css";
+import { CarIcon } from "../../components/CarIcon";
 
 export const WinnersPage = () => {
-  let count = 3;
+  const [winners, setWinners] = useState<any[]>([]);
+
+  const getWinners = async () => {
+    const response = await axios.get(`${BASE_URL}/winners?_limit=7&_page=${1}`);
+    setWinners(response.data);
+  };
+  useEffect(() => {
+    getWinners();
+  }, []);
+
+
   return (
     <div className={styles.winners_page}>
-      <h2 className={styles.winners_page_title}>Winners ({count})</h2>
-      <p style={{color: "white"}}>Pagination</p> {/* CHANGE ON PAGINATION */}
+      <h2 className={styles.winners_page_title}>Winners ({winners.length})</h2>
+      <p style={{ color: "white" }}>Pagination</p> {/* CHANGE ON PAGINATION */}
       <table>
         <thead>
           <tr>
@@ -19,14 +31,19 @@ export const WinnersPage = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td data-column="Number">1</td>
-            <td data-column="Car">img</td>
-            <td data-column="Name">bmw</td>
-            <td data-column="Wins">20</td>
-            <td data-column="Best time">20</td>
-          </tr>
-         
+          {winners.map((item, index) => {
+            return (
+              <tr key={item.id}>
+                <td data-column="Number">{index + 1}</td>
+                <td data-column="Car">
+                  <CarIcon fill={item.color} />
+                </td>
+                <td data-column="Name">{item.name}</td>
+                <td data-column="Wins">{item.wins}</td>
+                <td data-column="Best time">{item.time}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

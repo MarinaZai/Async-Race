@@ -13,8 +13,7 @@ table {
   padding: 10%;
 }
 
-/* Zebra striping */
-tr:nth-of-type(odd) {
+tr {
   background: #eee;
 }
 
