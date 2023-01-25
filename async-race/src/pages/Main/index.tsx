@@ -73,6 +73,7 @@ export const MainPage = () => {
 
   useEffect(() => {
     getCars();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
   return (

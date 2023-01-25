@@ -15,7 +15,7 @@ type CarRacePropsType = {
   startRace: boolean;
   setIsAnimationStarted: (isStarted: boolean) => void;
   isAnimationStarted: boolean;
-  winnerHandler: Dispatch<SetStateAction<{ time: number } & ICar | null>>;
+  winnerHandler: Dispatch<SetStateAction<({ time: number } & ICar) | null>>;
 };
 
 export const CarRace: React.FC<CarRacePropsType> = ({
@@ -24,7 +24,6 @@ export const CarRace: React.FC<CarRacePropsType> = ({
   selectedCar,
   setSelectedCar,
   startRace = false,
-  setIsAnimationStarted,
   isAnimationStarted,
   winnerHandler,
 }) => {
@@ -33,6 +32,16 @@ export const CarRace: React.FC<CarRacePropsType> = ({
   const [duration, setDuration] = useState(0);
   const [isStart, setIsStart] = useState(startRace);
   const [isCarCrashed, setIsCarCrashed] = useState(false);
+
+  const startStopEngine = async (id: number, status: "started" | "stopped") => {
+    const result = await axios.patch<{ velocity: number; distance: number }>(
+      `${BASE_URL}/engine?id=${id}&status=${status}`,
+    );
+    if (status === "started") {
+      setDuration(result.data.distance / result.data.velocity);
+      driveEngine(id);
+    }
+  };
 
   const driveEngine = async (id: number) => {
     await axios
@@ -46,18 +55,9 @@ export const CarRace: React.FC<CarRacePropsType> = ({
       });
   };
 
-  const startStopEngine = async (id: number, status: "started" | "stopped") => {
-    const result = await axios.patch<{ velocity: number; distance: number }>(
-      `${BASE_URL}/engine?id=${id}&status=${status}`,
-    );
-    if (status === "started") {
-      setDuration(result.data.distance / result.data.velocity);
-      driveEngine(id);
-    }
-  };
-
   useEffect(() => {
     startStopEngine(car.id, "started");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAnimationStarted]);
 
   const nextAnimationFrameHandler = (progress: number) => {
@@ -86,6 +86,7 @@ export const CarRace: React.FC<CarRacePropsType> = ({
       }
     }
     setIsCarCrashed(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAnimationStarted, isStart]);
 
   useEffect(() => {

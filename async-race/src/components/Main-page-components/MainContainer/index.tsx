@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../../../constants";
 import { ICar } from "../../../interfaces";
-import { WinnersPage } from "../../../pages/Winners";
 import { CarRace } from "../CarRace";
 import styles from "./styles.module.css";
 
@@ -96,11 +95,13 @@ export const MainContainer: React.FC<MainContainerPropsType> = ({
       if (isAnimationStarted) {
         setWinner(null);
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isAnimationStarted]);
     useEffect(() => {
       if (winner) {
         winnerHandler(winner);
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [winner]);
     return (
       <div>
